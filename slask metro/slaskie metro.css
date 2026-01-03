@@ -1,0 +1,182 @@
+body{
+    background: #2439ad;
+    background: linear-gradient(to bottom right, rgba(36, 57, 173, 1) 0%, rgba(196, 18, 53, 1) 95%);
+    color: rgb(255, 220, 220);
+    font-size: medium;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+h1{
+    font-size: 48px;
+    color:white;
+    font-family:'Trebuchet MS';
+    text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
+    text-align: center;
+}
+li, a{
+    color: whitesmoke;
+    font-size: large;
+    text-decoration: none;
+}
+ul{
+    color: rgb(255, 220, 220);
+    font-size: large;
+    text-align: left;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+ol{
+    font-size: xx-large;
+    text-align: left;
+    color: rgb(255, 220, 220);
+    margin-left: 25%;
+    margin-right: 25%;
+}
+#ciekawostki, #artysci{
+    color: rgb(255, 220, 220);
+    font-size: large;
+    text-align: left;
+    margin-left: 25%;
+    margin-right: 25%;
+
+}
+header, header a{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+}
+header{
+       background-image: url(header.jpg);
+       border-radius: 5%;
+}
+header strong, footer strong, header a{
+  margin-right: 30px;
+}
+footer{
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    background-image: url(y2k.jpg);
+    border-radius: 5%;
+    position: sticky;
+    bottom: 0;
+}
+#pomysl{
+    text-align: left;
+    font-size: large;
+    
+    padding: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+section{
+    text-align: center;
+    
+    border-radius: 5%;
+    margin-left: 7%;
+    margin-right: 7%;
+}
+input{
+    background-color: rgba(226, 187, 238, 0.719);
+    border-radius: 12px;
+    height: 70px;
+    width: 400px;
+    color: #000000;
+}
+::placeholder{
+    text-align: center;
+}
+input:hover{
+    background-color: #ffffff;
+    transition: background-color 0.5s;
+}
+button{
+    background-image: url(y2k2.jpg);
+    height: 50px;
+    width: 500px;
+    color: #FFF;
+    border-radius: 12px;
+}
+label{
+    font-size: large;
+}
+#stacje{
+    font-size: x-large;
+}
+p.lead{margin:0;color:var(--muted)}
+.controls{margin-top:12px;display:flex;gap:8px}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px}
+.card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(11,103,194,0.06)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{background:#8b01a7;color:var(--accent);font-weight:600;padding:8px;border-bottom:1px solid #e6eefc;text-align:left}
+tbody td{padding:8px;border-bottom:1px solid #f1f5f9}
+.small{font-size:13px;color:var(--muted)}
+.meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+
+.photo-slider {
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.slides {
+    width: 100%;
+    height: 450px;
+    position: relative;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Zdjęcie wypełnia obszar bez zniekształceń */
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    position: relative; /* Sprawia, że aktywny obrazek ustala wysokość */
+}
+
+/* Panel ze strzałkami na dole */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    background: #fff;
+}
+
+.nav-btn {
+    background: #222;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background: #ff4757;
+}
+p{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#main{
+    text-align: left;
+    padding-left: 20%;
+    padding-right: 20%;
+}

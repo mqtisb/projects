@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacja Brynów</title>
+    <link rel="stylesheet" href="slaskie metro.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+</head>
+<body>
+<header>
+<a href="metro.html"><strong>Strona główna</strong></a><a href="metro.html#rozklad"><strong>Rozkład jazdy</strong></a><a href="metro.html#Mapa"><strong>Mapa przystanków</strong></a><a href="metro.html#Kontakt"><strong>Kontakt</strong></a>
+   </header>
+    <div id="ciekawostki">
+      <h1>Brynów</h1>
+          <div class="photo-slider">
+    <div class="slides">
+        <img class="slide active" src="bry1.jpg" alt="Zdjęcie 1">
+        <img class="slide" src="bry2.jfif" alt="Zdjęcie 2">
+        <img class="slide" src="bry3.jfif" alt="Zdjęcie 3">
+    </div>
+    <div class="navigation">
+        <button class="nav-btn" onclick="moveSlide(-1)">&#10094; Poprzednie</button>
+        <button class="nav-btn" onclick="moveSlide(1)">Następne &#10095;</button>
+    </div>
+  </div>
+        <p>Brynów to dzielnica miasta Katowice, położona w południowo-zachodniej części miasta, blisko centrum. <br>
+        Wyróżnia się tym, że składa się zasadniczo z dwóch części administracyjnych:Brynów‑Osiedle Zgrzebnioka (część wschodnia) – mieszkalna, spokojna z przewagą zabudowy jednorodzinnej i terenów zielonych.<br> 
+        Załęska Hałda‑Brynów (część zachodnia) – nieco bardziej zróżnicowana pod względem zabudowy, z elementami przemysłowymi historycznie. </p>
+<p>W Brynowie znajduje się jedno z największych terenów zielonych Katowic — Park im. Tadeusza Kościuszki, który staje się swoistą „zieloną płucą” dzielnicy. 
+Dzielnica jest bardzo dobrze skomunikowana — m.in. przez nowoczesne centrum przesiadkowe Centrum Przesiadkowe Brynów, które ułatwia podróże komunikacją miejską, z możliwością „Park & Ride”.<br> 
+Brynów ma historię przemysłową – część zachodnia dzielnicy (Załęska Hałda-Brynów) była związana z kopalnią KWK Wujek i funkcjami przemysłowymi. 
+W części Brynowa-Osiedle Zgrzebnioka dominuje zabudowa jednorodzinna i jest to uznawane za jedną z bardziej prestiżowych części Katowic – spokojna, zielona i dobrze skomunikowana.</p>
+<p>Zalety:<br>
+Zielone otoczenie i dostęp do terenów rekreacyjnych – dobra opcja dla osób ceniących spokój i naturę.
+Bliskość centrum Katowic, a jednocześnie bardziej kameralna atmosfera niż najbardziej centralne dzielnice.
+Silna komunikacja – możliwość szybkiego dojazdu do różnych części miasta.<br>
+Kwestie do uwzględnienia:<br>
+Ze względu na historyczne elementy przemysłowe w niektórych częściach (szczególnie Załęska Hałda-Brynów) może być większy ruch komunikacyjny lub zabudowa mniej „kameralna” niż w części jednorodzinnej.
+Przy wyborze mieszkania/domu warto zwrócić uwagę na konkretną lokalizację – np. czy jest blisko głównych ulic/trasy komunikacyjnej – bo to może wpływać na komfort (hałas, ruch)</p>
+<p>Brynów to bardzo ciekawa dzielnica Katowic, oferująca dobrą równowagę między dostępem do miejskiej infrastruktury a spokojniejszym, bardziej zielonym otoczeniem. Jeśli szukasz miejsca, które jest blisko centrum, ale nie w „samym środku zgiełku”, Brynów może być bardzo dobrym wyborem.</p></div>
+<footer>
+<a href="metro.html"><strong>Strona główna</strong></a><a href="metro.html#rozklad"><strong>Rozkład jazdy</strong></a><a href="metro.html#Mapa"><strong>Mapa przystanków</strong></a><a href="metro.html#Kontakt"><strong>Kontakt</strong></a>
+  </footer>
+</body>
+</html>
+<script>
+let slideIndex = 0;
+const allSlides = document.querySelectorAll('.slide');
+
+function moveSlide(step) {
+    allSlides[slideIndex].classList.remove('active');
+    slideIndex += step;
+    if (slideIndex >= allSlides.length) {
+        slideIndex = 0;
+    }
+    if (slideIndex < 0) {
+        slideIndex = allSlides.length - 1;
+    }
+    allSlides[slideIndex].classList.add('active');
+}
+</script>

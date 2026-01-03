@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacja Koszutka</title>
+    <link rel="stylesheet" href="slaskie metro.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+</head>
+<body>
+<header>
+<a href="metro.html"><strong>Strona główna</strong></a><a href="metro.html#rozklad"><strong>Rozkład jazdy</strong></a><a href="metro.html#Mapa"><strong>Mapa przystanków</strong></a><a href="metro.html#Kontakt"><strong>Kontakt</strong></a>
+   </header>
+    <h1>Koszutka</h1>
+          <div class="photo-slider">
+    <div class="slides">
+        <img class="slide active" src="kosztu1.jpg" alt="Zdjęcie 1">
+        <img class="slide" src="kosz2.jpg" alt="Zdjęcie 2">
+        <img class="slide" src="koszu3.jpg" alt="Zdjęcie 3">
+        <img class="slide" src="koszu4.jpg" alt="Zdjęcie 4">
+    </div>
+    <div class="navigation">
+        <button class="nav-btn" onclick="moveSlide(-1)">&#10094; Poprzednie</button>
+        <button class="nav-btn" onclick="moveSlide(1)">Następne &#10095;</button>
+    </div>
+</div>
+    <div id="ciekawostki">
+    <p>Lokalizacja i dane podstawowe<br>
+        Koszutka to najmniejsza dzielnica Katowic, o powierzchni około 1,38 km², co stanowi mniej niż 1 % całego miasta. Mieszka tu około 10 000–12 600 osób.<br>
+        Położenie: bezpośrednio przy centrum — traktowana jako jego północne przedłużenie, ograniczona m.in. przez Drogową Trasę Średnicową (DTŚ) i Aleję Korfantego.</p>
+    <p>Historia dzielnicy:<br>
+        Koszutka powstała w XVII wieku jako kolonia Bogucic i była dawniej terenem rolniczym. W XIX wieku rozwój był poważnie ograniczony przez pożar kopalni Fanny i osiadania terenu. W 1924 r. Koszutka została włączona do Katowic. W okresie PRL wybudowano w jej obrębie Osiedle Robotnicze im. Juliana Marchlewskiego, które zastąpiło wcześniejsze «familoki» — typowe śląskie domy wielorodzinne. Zabudowa socrealistyczna i modernistyczna pochodzi z lat 50.–60. XX wieku; pod koniec lat 60. powstały tzw. „niebieskie bloki”.</p>
+    <p>Architektura i przestrzeń:<br>
+        W północnej części dzielnicy dominują przedwojenne wille, eleganckie i pełne przestrzeni. Południowa część wyróżnia się zabudową z lat 50. i późniejszych: socrealistyczne bloki, modernistyczne formy, „Galerio­wiec” i „niebieskie bloki”. Znajdują się tu także budynki zaprojektowane przez znanych architektów, m.in. Karola Schayera, Tadeusza Michejdę i zespół Franta–Buszko.</p>
+    <p>Zieleń i przestrzeń rekreacyjna:<br>
+        Dzielnica oferuje wiele zielonych zakątków — park Alojzego Budnioka, plac Grunwaldzki, skwer Holoubka czy plac Gwarków pozwalają mieszkańcom wypocząć w przyjaznym otoczeniu. Między budynkami znajdują się klimatyczne, pełne starych drzew podwórka — sporo naturalnej zieleni daje wrażenie przytulności i kameralności.</p>
+    <p>Kultura, sztuka i życie lokalne:<br>
+    Jednym z symboli dzielnicy jest pomnik mozaikowy „Rodzina” autorstwa Jerzego Egona Kwiatkowskiego, znajdujący się na placu Grunwaldzkim. Po remoncie w 2016 roku zyskał dawny blask.Znajduje się tu kultowe Kino „Kosmos” (obecnie Centrum Sztuki Filmowej), organizujące wydarzenia filmowe, a latem seanse plenerowe. Nie zabrakło lokalnych smaków i historii — bazar, kultowy sklep rybny „Karaś”, Bar Mleczny Diana, concept stores jak Geszeft, kawiarnie i galerie (np. Galeria Szara) — łącznie tworzą żywą tkankę społeczną.</p>
+    <p>Infrastruktura i dostępność:<br>
+    Koszutka cechuje się znakomitą komunikacją — liczne linie tramwajowe (6, 11, 13, 14, 16, 23, 41) i autobusowe oraz bliskość DTŚ. Dzielnica ma też silny charakter usługowy: znajdują się tu m.in. wydział Uniwersytetu Śląskiego (Pedagogiki i Psychologii), Główny Instytut Górnictwa, Dom Kultury Koszutka, biblioteki, apteki, sklepy, lokale gastronomiczne i biura.</p></div>
+</p>
+<footer>
+<a href="metro.html"><strong>Strona główna</strong></a><a href="metro.html#rozklad"><strong>Rozkład jazdy</strong></a><a href="metro.html#Mapa"><strong>Mapa przystanków</strong></a><a href="metro.html#Kontakt"><strong>Kontakt</strong></a>
+  </footer>
+</body>
+</html>
+<script>
+let slideIndex = 0;
+const allSlides = document.querySelectorAll('.slide');
+
+function moveSlide(step) {
+    allSlides[slideIndex].classList.remove('active');
+    slideIndex += step;
+    if (slideIndex >= allSlides.length) {
+        slideIndex = 0;
+    }
+    if (slideIndex < 0) {
+        slideIndex = allSlides.length - 1;
+    }
+    allSlides[slideIndex].classList.add('active');
+}
+</script>
