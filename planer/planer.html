@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twój Planer Tygodniowy</title>
+    <style>
+        :root {
+      --primary: #C79595;
+      --primary-dark: #B77350;
+      --bg: #FFFFFF;
+      --card: #F2EBE4;
+      --text: #4A3F3F;           
+      --accent: #E5DCD3;
+      --danger: #D66D67;}  
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            background-color: rgb(49, 49, 49);
+        }
+        .planner-wrapper {
+            width: 100%;
+            max-width: 1200px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: var(--card);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        h1 { margin: 0; font-size: 1.5rem; min-width: 200px; }
+        .nav-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .nav-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .input-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+        }
+        input[type="text"]:focus { border-color: var(--primary); }
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .add-btn:hover { background: var(--primary-dark); }
+        .week-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .day-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 250px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        .day-card:hover { transform: translateY(-3px); }
+        .day-card.active {
+            border-color: var(--primary);
+            background: var(--accent);
+        }
+        .day-header {
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .day-header span { 
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            letter-spacing: 1px; 
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .day-header strong { display: block; font-size: 1.6rem; margin-top: 5px; }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        .task-item {
+            background: #ffffff;
+            margin-bottom: 6px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-left: 3px solid var(--primary);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delete-task {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 0 5px;
+        }
+        .delete-task:hover { color: var(--danger); }
+        @media (max-width: 600px) {
+            .week-container { grid-template-columns: 1fr; }
+            .nav-container { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="planner-wrapper">
+        <header>
+            <div class="nav-container">
+                <button class="nav-btn" id="prev-week">« Poprzedni</button>
+                <h1 id="month-name">Miesiąc Rok</h1>
+                <button class="nav-btn" id="next-week">Następny »</button>
+            </div>
+            <div class="input-bar">
+                <input type="text" id="task-input" placeholder="Co masz do zrobienia?">
+                <button class="add-btn" id="add-btn">Dodaj do wybranego dnia</button>
+            </div>
+        </header>
+
+        <div class="week-container" id="week-grid">
+            </div>
+    </div>
+    <script>
+        let tasksData = JSON.parse(localStorage.getItem('myWeeklyPlanner')) || {};
+        let weekOffset = 0; 
+        let selectedDateStr = "";
+        const daysFull = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+        const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+        function initPlanner() {
+            const grid = document.getElementById('week-grid');
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const diffToMonday = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1) + (weekOffset * 7);
+            const monday = new Date(today.getFullYear(), today.getMonth(), diffToMonday);
+            document.getElementById('month-name').innerText = `${months[monday.getMonth()]} ${monday.getFullYear()}`;
+            grid.innerHTML = "";
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(monday);
+                date.setDate(monday.getDate() + i);
+                const dateStr = date.toISOString().split('T')[0];
+                const isToday = dateStr === new Date().toISOString().split('T')[0];
+                const card = document.createElement('div');
+                card.className = `day-card ${isToday || dateStr === selectedDateStr ? 'active' : ''}`;
+                if (isToday && !selectedDateStr) selectedDateStr = dateStr;
+                card.innerHTML = 
+                    `<div class="day-header">
+                        <span>${daysFull[date.getDay()]}</span>
+                        <strong>${date.getDate()}</strong>
+                    </div>
+                    <ul class="task-list" id="list-${dateStr}"></ul>`;
+                card.onclick = () => {
+                    document.querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    selectedDateStr = dateStr;
+                };
+                grid.appendChild(card);
+                renderDayTasks(dateStr);
+            }
+        }
+        function renderDayTasks(dateStr) {
+            const list = document.getElementById(`list-${dateStr}`);
+            if (!list) return;
+            list.innerHTML = "";
+            const tasks = tasksData[dateStr] || [];
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.className = "task-item";
+                li.innerHTML = `
+                    <span>${task}</span>
+                    <button class="delete-task" onclick="deleteTask('${dateStr}', ${index}); event.stopPropagation();">×</button>
+                `;
+                list.appendChild(li);
+            });
+            localStorage.setItem('myWeeklyPlanner', JSON.stringify(tasksData));
+        }
+        document.getElementById('add-btn').onclick = () => {
+            const input = document.getElementById('task-input');
+            const val = input.value.trim();  
+            if (!val) {
+                alert("Wpisz treść zadania!");
+                return;
+            }
+            if (!tasksData[selectedDateStr]) tasksData[selectedDateStr] = [];
+            tasksData[selectedDateStr].push(val);
+            input.value = "";
+            renderDayTasks(selectedDateStr);
+        };
+        function deleteTask(dateStr, index) {
+            tasksData[dateStr].splice(index, 1);
+            renderDayTasks(dateStr);
+        }
+        document.getElementById('prev-week').onclick = () => {
+            weekOffset--;
+            initPlanner();
+        };
+        document.getElementById('next-week').onclick = () => {
+            weekOffset++;
+            initPlanner();
+        };
+        document.getElementById('task-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('add-btn').click();
+        });
+        initPlanner();
+    </script>
+</body>
+</html>
