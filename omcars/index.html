@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OMCars</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
 * {
@@ -78,6 +77,7 @@ body {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    font-size: 1rem;
     transition: background 0.3s;
 }
 .btn:hover {
@@ -90,13 +90,33 @@ body {
 }
 .cars-section h2 {
     text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* --- Style filtrów --- */
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-bottom: 3rem;
 }
+.filters select {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
 .car-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding-top: 2rem;
 }
 .car-card {
     background: #ffffff;
@@ -127,11 +147,12 @@ body {
 }
 .btn-sm {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.8rem;
     border: 1px solid #e74c3c;
     background: transparent;
     color: #e74c3c;
     border-radius: 5px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -139,6 +160,7 @@ body {
     background: #e74c3c;
     color: #fff;
 }
+
 .contact-section {
     padding: 4rem 10%;
 }
@@ -159,6 +181,76 @@ body {
     border-radius: 5px;
     font-family: inherit;
 }
+
+/* --- Style Modala (wyskakującego okienka) --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.6); 
+    align-items: center; 
+    justify-content: center;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+.close-modal:hover {
+    color: #e74c3c;
+}
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.modal-form label {
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+.modal-form input {
+    padding: 0.8rem;
+    margin-top: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+}
+.summary-box {
+    background: #f9f9f9;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid #e74c3c;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+.summary-box h4 {
+    margin-bottom: 0.5rem;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
 footer {
     text-align: center;
     padding: 2rem;
@@ -184,6 +276,7 @@ footer {
 <li><a href="#contact">Kontakt</a></li>
 </ul>
 </nav>
+
 <header id="home" class="hero">
 <div class="hero-content">
 <h1>Twoja przygoda zaczyna się tutaj</h1>
@@ -191,11 +284,27 @@ footer {
 <a href="#cars" class="btn">Sprawdź ofertę</a>
 </div>
 </header>
+
 <section id="cars" class="cars-section">
     <h2>Nasza Flota</h2>
-    <div id="car-container" class="car-grid">
-        </div>
+    
+    <div class="filters">
+        <select id="transmissionFilter">
+            <option value="all">Wszystkie skrzynie biegów</option>
+            <option value="Automat">Automatyczna</option>
+            <option value="Manual">Manualna</option>
+        </select>
+        
+        <select id="priceSort">
+            <option value="default">Sortuj domyślnie</option>
+            <option value="asc">Cena: Rosnąco</option>
+            <option value="desc">Cena: Malejąco</option>
+        </select>
+    </div>
+
+    <div id="car-container" class="car-grid"></div>
 </section>
+
 <section id="contact" class="contact-section">
 <h2>Skontaktuj się z nami</h2>
 <form class="contact-form">
@@ -205,11 +314,39 @@ footer {
 <button type="submit" class="btn">Wyślij wiadomość</button>
 </form>
 </section>
+
 <footer>
 <p>&copy; 2026 OMCars. Wszelkie prawa zastrzeżone.</p>
 </footer>
-</body>
-</html>
+
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <h2>Rezerwacja auta</h2>
+        <h3 id="modalCarName" style="color: #e74c3c; margin-bottom: 1rem;"></h3>
+        
+        <form id="bookingForm" class="modal-form">
+            <label>Imię i nazwisko</label>
+            <input type="text" required placeholder="Jan Kowalski">
+            
+            <label>Telefon lub E-mail</label>
+            <input type="text" required placeholder="Twój kontakt">
+            
+            <label>Data od:</label>
+            <input type="date" id="dateFrom" required>
+            
+            <label>Data do:</label>
+            <input type="date" id="dateTo" required>
+
+            <div class="summary-box" id="priceSummary">
+                <p>Wybierz daty, aby zobaczyć podsumowanie kosztów.</p>
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%;">Potwierdź rezerwację</button>
+        </form>
+    </div>
+</div>
+
 <script>
 const cars = [
     { name: "Ferrari F8", type: "Sportowy", price: 1500, transmission: "Automat",  img: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=500&q=60" },
@@ -243,19 +380,129 @@ const cars = [
     { name: "Alfa Romeo Giulia", type: "Sedan", price: 380, transmission: "Automat", img: "https://autosearch.pl/wp-content/uploads/2025/02/alfa-romeo-giulia-sprint-2-0-turbo-visconti-green-2020-1-e1738857750528.jpg" },
     { name: "Jeep Wrangler", type: "Terenowy", price: 400, transmission: "Automat", img: "https://flib.samar.pl/500/900/5689384214914dda4a52560.webp" }
 ];
+
 const container = document.getElementById('car-container');
-cars.forEach(car => {
-    const card = `
-        <div class="car-card">
-            <div class="car-img" style="background-image: url('${car.img}');"></div>
-            <div class="car-info">
-                <h3>${car.name}</h3>
-                <p>${car.type} | ${car.transmission}</p>
-                <span class="price">${car.price} zł / doba</span>
-                <button class="btn-sm">Rezerwuj</button>
+const transmissionFilter = document.getElementById('transmissionFilter');
+const priceSort = document.getElementById('priceSort');
+
+const modal = document.getElementById('bookingModal');
+const closeModalBtn = document.getElementById('closeModal');
+const modalCarName = document.getElementById('modalCarName');
+const dateFromInput = document.getElementById('dateFrom');
+const dateToInput = document.getElementById('dateTo');
+const priceSummary = document.getElementById('priceSummary');
+const bookingForm = document.getElementById('bookingForm');
+
+let currentCarPrice = 0;
+
+
+function renderCars(carsToRender) {
+    container.innerHTML = '';
+    carsToRender.forEach(car => {
+        const card = `
+            <div class="car-card">
+                <div class="car-img" style="background-image: url('${car.img}');"></div>
+                <div class="car-info">
+                    <h3>${car.name}</h3>
+                    <p>${car.type} | ${car.transmission}</p>
+                    <span class="price">${car.price} zł / doba</span>
+                    <button class="btn-sm open-modal-btn" data-name="${car.name}" data-price="${car.price}">Rezerwuj</button>
+                </div>
             </div>
-        </div>
+        `;
+        container.innerHTML += card;
+    });
+}
+
+function updateCars() {
+    let filteredCars = [...cars];
+    const transValue = transmissionFilter.value;
+    
+    if (transValue !== 'all') {
+        filteredCars = filteredCars.filter(car => car.transmission === transValue);
+    }
+
+    const sortValue = priceSort.value;
+    if (sortValue === 'asc') {
+        filteredCars.sort((a, b) => a.price - b.price);
+    } else if (sortValue === 'desc') {
+        filteredCars.sort((a, b) => b.price - a.price);
+    }
+
+    renderCars(filteredCars);
+}
+
+
+function calculatePrice() {
+    const start = new Date(dateFromInput.value);
+    const end = new Date(dateToInput.value);
+
+
+    if (isNaN(start) || isNaN(end) || start >= end) {
+        priceSummary.innerHTML = '<p style="color:#e74c3c;">Proszę wybrać poprawne daty (minimum 1 doba).</p>';
+        return;
+    }
+
+
+    const diffTime = Math.abs(end - start);
+    const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    let discountPercent = 0;
+    let discountName = "";
+    if (days >= 30) {
+        discountPercent = 0.20;
+        discountName = "Miesiąc (-20%)";
+    } else if (days >= 7) {
+        discountPercent = 0.15;
+        discountName = "Tydzień (-15%)";
+    } else if (days >= 2) {
+        discountPercent = 0.10;
+        discountName = "Weekend (-10%)";
+    }
+
+    const basePrice = days * currentCarPrice;
+    const discountAmount = basePrice * discountPercent;
+    const finalPrice = basePrice - discountAmount;
+    const monthlyCostWithDiscount = 30 * currentCarPrice * 0.80; 
+    const depositAmount = monthlyCostWithDiscount * 1;
+
+    priceSummary.innerHTML = `
+        <h4>Podsumowanie:</h4>
+        <div class="summary-row"><span>Liczba dób:</span> <strong>${days}</strong></div>
+        <div class="summary-row"><span>Cena bazowa:</span> <strong>${basePrice.toFixed(2)} zł</strong></div>
+        ${discountPercent > 0 ? `<div class="summary-row" style="color: #27ae60;"><span>Rabat (${discountName}):</span> <strong>-${discountAmount.toFixed(2)} zł</strong></div>` : ''}
+        <div class="summary-row"><span>Kaucja zwrotna:</span> <strong>${depositAmount.toFixed(2)} zł</strong></div>
+        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #ddd;">
+        <div class="summary-row" style="font-size: 1.2rem;"><span>Suma najmu (bez kaucji):</span> <strong style="color: #e74c3c;">${finalPrice.toFixed(2)} zł</strong></div>
     `;
-    container.innerHTML += card;
+}
+transmissionFilter.addEventListener('change', updateCars);
+priceSort.addEventListener('change', updateCars);
+dateFromInput.addEventListener('change', calculatePrice);
+dateToInput.addEventListener('change', calculatePrice);
+container.addEventListener('click', (e) => {
+    if (e.target.classList.contains('open-modal-btn')) {
+        const carName = e.target.getAttribute('data-name');
+        currentCarPrice = parseFloat(e.target.getAttribute('data-price'));
+        modalCarName.innerText = carName;
+        modal.style.display = 'flex';
+        bookingForm.reset();
+        priceSummary.innerHTML = '<p>Wybierz daty, aby zobaczyć podsumowanie kosztów.</p>';
+    }
 });
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Dziękujemy! Twoja rezerwacja została wysłana pomyślnie. Skontaktujemy się z Tobą wkrótce.');
+    modal.style.display = 'none';
+});
+renderCars(cars);
 </script>
+</body>
+</html>
