@@ -5,267 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OMCars</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    scroll-behavior: smooth;
-}
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 10%;
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-.logo {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #222;
-}
-.logo span {
-    color: #e74c3c;
-}
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-.nav-links li a {
-    text-decoration: none;
-    color: #333;
-    margin-left: 2rem;
-    transition: color 0.3s;
-}
-.nav-links li a:hover {
-    color: #e74c3c;
-}
-.hero {
-    height: 80vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-    url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1500&q=80');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-}
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-.btn {
-    background: #e74c3c;
-    color: #fff;
-    padding: 0.8rem 2rem;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s;
-}
-.btn:hover {
-    background: #c0392b;
-}
-
-.cars-section {
-    padding: 4rem 10%;
-    background: #b6b6b6;
-}
-.cars-section h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-/* --- Style filtrów --- */
-.filters {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 3rem;
-}
-.filters select {
-    padding: 0.8rem 1.2rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 1rem;
-    outline: none;
-    cursor: pointer;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.car-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-.car-card {
-    background: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-}
-.car-card:hover {
-    transform: translateY(-10px);
-}
-.car-img {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-}
-.car-info {
-    padding: 1.5rem;
-}
-.car-info h3 {
-    margin-bottom: 0.5rem;
-}
-.price {
-    display: block;
-    font-weight: 600;
-    color: #e74c3c;
-    margin: 1rem 0;
-}
-.btn-sm {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #e74c3c;
-    background: transparent;
-    color: #e74c3c;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-.btn-sm:hover {
-    background: #e74c3c;
-    color: #fff;
-}
-
-.contact-section {
-    padding: 4rem 10%;
-}
-.contact-section h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-.contact-form input, .contact-form textarea {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: inherit;
-}
-
-/* --- Style Modala (wyskakującego okienka) --- */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 2000; 
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0,0,0,0.6); 
-    align-items: center; 
-    justify-content: center;
-}
-.modal-content {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-}
-.close-modal:hover {
-    color: #e74c3c;
-}
-.modal-form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
-}
-.modal-form label {
-    font-weight: 600;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-.modal-form input {
-    padding: 0.8rem;
-    margin-top: 0.2rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: inherit;
-}
-.summary-box {
-    background: #f9f9f9;
-    padding: 1rem;
-    margin: 1.5rem 0;
-    border-left: 4px solid #e74c3c;
-    border-radius: 4px;
-    font-size: 0.95rem;
-}
-.summary-box h4 {
-    margin-bottom: 0.5rem;
-}
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.3rem;
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    background: #222;
-    color: #fff;
-}
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-}
-    </style>
+<link rel="stylesheet" href="kod.css">
 </head>
 <body>
 <nav class="navbar">
@@ -276,7 +16,6 @@ footer {
 <li><a href="#contact">Kontakt</a></li>
 </ul>
 </nav>
-
 <header id="home" class="hero">
 <div class="hero-content">
 <h1>Twoja przygoda zaczyna się tutaj</h1>
@@ -284,10 +23,8 @@ footer {
 <a href="#cars" class="btn">Sprawdź ofertę</a>
 </div>
 </header>
-
 <section id="cars" class="cars-section">
     <h2>Nasza Flota</h2>
-    
     <div class="filters">
         <select id="transmissionFilter">
             <option value="all">Wszystkie skrzynie biegów</option>
@@ -304,7 +41,6 @@ footer {
 
     <div id="car-container" class="car-grid"></div>
 </section>
-
 <section id="contact" class="contact-section">
 <h2>Skontaktuj się z nami</h2>
 <form class="contact-form">
@@ -314,11 +50,9 @@ footer {
 <button type="submit" class="btn">Wyślij wiadomość</button>
 </form>
 </section>
-
 <footer>
 <p>&copy; 2026 OMCars. Wszelkie prawa zastrzeżone.</p>
 </footer>
-
 <div id="bookingModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" id="closeModal">&times;</span>
@@ -341,168 +75,10 @@ footer {
             <div class="summary-box" id="priceSummary">
                 <p>Wybierz daty, aby zobaczyć podsumowanie kosztów.</p>
             </div>
-
             <button type="submit" class="btn" style="width: 100%;">Potwierdź rezerwację</button>
         </form>
     </div>
 </div>
-
-<script>
-const cars = [
-    { name: "Ferrari F8", type: "Sportowy", price: 1500, transmission: "Automat",  img: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=500&q=60" },
-    { name: "Lamborghini Huracan", type: "Sportowy",  price: 1500, transmission: "Automat", img: "https://www.fototapety.com/media/catalog/product/cache/5b18b93ddbe5d6592c6b175f41d24454/w/1/w16533-small_uj5qefcv7dngs5rl.jpg" },
-    { name: "Toyota Corolla", type: "Kompakt", price: 120, transmission: "Automat", img: "https://d-art.ppstatic.pl/kadry/k/r/1/2d/6e/625690f0cd021_o_original.jpg" },
-    { name: "Porsche 911 GT3", type: "Sportowy", price: 1100, transmission: "Automat", img: "https://wyborkierowcow.pl/danetechniczne/wp-content/uploads/2025/01/Porsche-911-991-GT3-RS-0218-1020-dane-techniczne.jpg" },
-    { name: "Audi RS6", type: "Kombi / Sport", price: 600, transmission: "Automat", img: "https://wyborkierowcow.pl/danetechniczne/wp-content/uploads/2024/12/Audi-RS6-C8-Avant-od-0224-dane-techniczne-1-scaled.jpg" },
-    { name: "BMW M4 CS", type: "Sportowy", price: 500, transmission: "Automat", img: "https://bringatrailer.com/wp-content/uploads/2023/08/2019_bmw_m4-cs_img_0643-3-32031.jpeg" },
-    { name: "Skoda Octavia", type: "Kombi", price: 150, transmission: "Automat", img: "https://img.chceauto.pl/skoda/octavia/skoda-octavia-kombi-4335-47173_head.jpg" },
-    { name: "Nissan GT-R", type: "Sportowy", price: 800,transmission: "Automat", img: "https://webp-konwerter.incdn.pl/eyJmIjoiaHR0cHM6Ly9n/OS5pbmZvci5wbC9wL19m/aWxlcy8yOTcwMDAvMTNf/MTQ2MDc0XzFfNS5qcGcifQ.jpg" },
-    { name: "Ford Mustang GT", type: "Muscle Car", price: 400, transmission: "Manual", img: "https://autosearch.pl/wp-content/uploads/2024/11/ford-mustang-gt-5-0-v8-at10-lucid-red-2022-1-e1730811414849.jpg" },
-    { name: "Volkswagen Golf GTI", type: "Hot-hatch", price: 250, transmission: "Manual", img: "https://f.magazynauto.pl/magazynauto_prod_2025_03/thumb-article-5051-tmain.jpg?v=80414967d0717de5873e85008ba32c40" },
-    { name: "Mercedes AMG GT", type: "Sportowy", price: 950, transmission: "Automat", img: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=500&q=60" },
-    { name: "Tesla Model 3", type: "Elektryczny", price: 300, transmission: "Automat", img: "https://media.drivingelectric.com/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1698686429/drivingelectric/2023-10/Tesla%20Model%203%20facelift%201_awovfc.jpg" },
-    { name: "Hyundai i30N", type: "Hot-hatch", price: 280, transmission: "Manual", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZTrMNfgxGfqQTQ2sEh7UTydDGPkUKHxV3QA&s" },
-    { name: "Chevrolet Camaro", type: "Muscle Car", price: 420, transmission: "Automat", img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500&q=60" },
-    { name: "Mazda MX-5", type: "Cabrio", price: 220, transmission: "Manual", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRajmjTu3IEQ4ZGoHfMlkM3Xg9nipLlnXd3dg&s" },
-    { name: "Dodge Challenger", type: "Muscle Car", price: 450, transmission: "Automat", img: "https://ireland.apollo.olxcdn.com/v1/files/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmbiI6InYwMWc4cXN4cmU4ZC1PVE9NT1RPUEwiLCJ3IjpbeyJmbiI6IndnNGducXA2eTFmLU9UT01PVE9QTCIsInMiOiIxNiIsImEiOiIwIiwicCI6IjEwLC0xMCJ9XX0.l5LbZVTVnHAln4zjQQjvceyVr3tnc4lmH23NUfzIom4/image;s=5120x0;q=100" },
-    { name: "Honda Civic Type R", type: "Sportowy", price: 320, transmission: "Manual", img: "https://autosearch.pl/wp-content/uploads/2024/03/honda-civic-type-r-fk8-blue-1-przod-lewy.webp" },
-    { name: "Kia Ceed", type: "Kompakt", price: 130, transmission: "Manual", img: "https://www.fleetmarket.pl/wp-content/uploads/2019/10/Kia-Ceed-2019-1600-03.jpg" },
-    { name: "Mclaren 720S", type: "Supercar", price: 1600, transmission: "Automat", img: "https://wyborkierowcow.pl/danetechniczne/wp-content/uploads/2025/01/McLaren-720S-Spider-0319-0423-dane-techniczne.jpg" },
-    { name: "Aston Martin DB11", type: "GT", price: 1300, transmission: "Automat", img: "https://www.classicandexotic.ie/wp-content/uploads/2025/06/eed7b375d6f6f2e7f3d93522f0d77b46-883x662.jpg" },
-    { name: "Fiat 500", type: "Miejski", price: 110, transmission: "Manual", img: "https://wyborkierowcow.pl/danetechniczne/wp-content/uploads/2025/03/Fiat-500-312-1007-0715-dane-techniczne.jpg" },
-    { name: "Subaru Impreza WRX", type: "Rajdowy",  price: 350, transmission: "Automat", img: "https://img.stcrm.it/images/1204931/800x/5-subaru-wrx-2014-14.jpg" },
-    { name: "Audi R8", type: "Supercar", price: 1300, transmission: "Automat", img: "https://ireland.apollo.olxcdn.com/v1/files/shn13zn4cfp52-OTOMOTOPL/image;s=644x461" },
-    { name: "Jaguar F-Type", type: "Sportowy", price: 500, transmission: "Automat", img: "https://www.exoticcarhacks.com/wp-content/uploads/2024/05/yBSbHGOi-scaled.jpeg" },
-    { name: "Toyota Supra", type: "Sportowy", price: 480, transmission: "Automat", img: "https://www.toyotanews.eu/pl/aktualnosci/2706-item-toyota-gr-supra-czyli-torowe-auto-na-drogi-czym-rozni-sie-wyscigowa-wersja-gt4?action=download&file=image&id=37099" },
-    { name: "Volvo XC90", type: "SUV", price: 350, transmission: "Automat", img: "https://cdn-ab.spidersweb.pl/2022/03/volvo-xc90-t8-recharge-test-01.webp" },
-    { name: "Ford Focus", type: "Kompakt", price: 130, transmission: "Manual", img: "https://www.wyborkierowcow.pl/wp-content/uploads/2024/05/KSZ_FORD_FOCUS_IV_FL_ST_EXTERIOR_002-scaled.jpg" },
-    { name: "Renault Clio", type: "Miejski", price: 110, transmission: "Manual", img: "https://motormag.pl/wp-content/uploads/2022/03/AB_00471.jpeg" },
-    { name: "Alfa Romeo Giulia", type: "Sedan", price: 380, transmission: "Automat", img: "https://autosearch.pl/wp-content/uploads/2025/02/alfa-romeo-giulia-sprint-2-0-turbo-visconti-green-2020-1-e1738857750528.jpg" },
-    { name: "Jeep Wrangler", type: "Terenowy", price: 400, transmission: "Automat", img: "https://flib.samar.pl/500/900/5689384214914dda4a52560.webp" }
-];
-
-const container = document.getElementById('car-container');
-const transmissionFilter = document.getElementById('transmissionFilter');
-const priceSort = document.getElementById('priceSort');
-
-const modal = document.getElementById('bookingModal');
-const closeModalBtn = document.getElementById('closeModal');
-const modalCarName = document.getElementById('modalCarName');
-const dateFromInput = document.getElementById('dateFrom');
-const dateToInput = document.getElementById('dateTo');
-const priceSummary = document.getElementById('priceSummary');
-const bookingForm = document.getElementById('bookingForm');
-
-let currentCarPrice = 0;
-
-
-function renderCars(carsToRender) {
-    container.innerHTML = '';
-    carsToRender.forEach(car => {
-        const card = `
-            <div class="car-card">
-                <div class="car-img" style="background-image: url('${car.img}');"></div>
-                <div class="car-info">
-                    <h3>${car.name}</h3>
-                    <p>${car.type} | ${car.transmission}</p>
-                    <span class="price">${car.price} zł / doba</span>
-                    <button class="btn-sm open-modal-btn" data-name="${car.name}" data-price="${car.price}">Rezerwuj</button>
-                </div>
-            </div>
-        `;
-        container.innerHTML += card;
-    });
-}
-
-function updateCars() {
-    let filteredCars = [...cars];
-    const transValue = transmissionFilter.value;
-    
-    if (transValue !== 'all') {
-        filteredCars = filteredCars.filter(car => car.transmission === transValue);
-    }
-
-    const sortValue = priceSort.value;
-    if (sortValue === 'asc') {
-        filteredCars.sort((a, b) => a.price - b.price);
-    } else if (sortValue === 'desc') {
-        filteredCars.sort((a, b) => b.price - a.price);
-    }
-
-    renderCars(filteredCars);
-}
-
-
-function calculatePrice() {
-    const start = new Date(dateFromInput.value);
-    const end = new Date(dateToInput.value);
-
-
-    if (isNaN(start) || isNaN(end) || start >= end) {
-        priceSummary.innerHTML = '<p style="color:#e74c3c;">Proszę wybrać poprawne daty (minimum 1 doba).</p>';
-        return;
-    }
-
-
-    const diffTime = Math.abs(end - start);
-    const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    let discountPercent = 0;
-    let discountName = "";
-    if (days >= 30) {
-        discountPercent = 0.20;
-        discountName = "Miesiąc (-20%)";
-    } else if (days >= 7) {
-        discountPercent = 0.15;
-        discountName = "Tydzień (-15%)";
-    } else if (days >= 2) {
-        discountPercent = 0.10;
-        discountName = "Weekend (-10%)";
-    }
-
-    const basePrice = days * currentCarPrice;
-    const discountAmount = basePrice * discountPercent;
-    const finalPrice = basePrice - discountAmount;
-    const monthlyCostWithDiscount = 30 * currentCarPrice * 0.80; 
-    const depositAmount = monthlyCostWithDiscount * 1;
-
-    priceSummary.innerHTML = `
-        <h4>Podsumowanie:</h4>
-        <div class="summary-row"><span>Liczba dób:</span> <strong>${days}</strong></div>
-        <div class="summary-row"><span>Cena bazowa:</span> <strong>${basePrice.toFixed(2)} zł</strong></div>
-        ${discountPercent > 0 ? `<div class="summary-row" style="color: #27ae60;"><span>Rabat (${discountName}):</span> <strong>-${discountAmount.toFixed(2)} zł</strong></div>` : ''}
-        <div class="summary-row"><span>Kaucja zwrotna:</span> <strong>${depositAmount.toFixed(2)} zł</strong></div>
-        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #ddd;">
-        <div class="summary-row" style="font-size: 1.2rem;"><span>Suma najmu (bez kaucji):</span> <strong style="color: #e74c3c;">${finalPrice.toFixed(2)} zł</strong></div>
-    `;
-}
-transmissionFilter.addEventListener('change', updateCars);
-priceSort.addEventListener('change', updateCars);
-dateFromInput.addEventListener('change', calculatePrice);
-dateToInput.addEventListener('change', calculatePrice);
-container.addEventListener('click', (e) => {
-    if (e.target.classList.contains('open-modal-btn')) {
-        const carName = e.target.getAttribute('data-name');
-        currentCarPrice = parseFloat(e.target.getAttribute('data-price'));
-        modalCarName.innerText = carName;
-        modal.style.display = 'flex';
-        bookingForm.reset();
-        priceSummary.innerHTML = '<p>Wybierz daty, aby zobaczyć podsumowanie kosztów.</p>';
-    }
-});
-closeModalBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-bookingForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Dziękujemy! Twoja rezerwacja została wysłana pomyślnie. Skontaktujemy się z Tobą wkrótce.');
-    modal.style.display = 'none';
-});
-renderCars(cars);
-</script>
 </body>
+<script src="kod.js"></script>
 </html>
