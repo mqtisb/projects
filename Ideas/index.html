@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Ideas</title>
+  <link href="kod.css" rel="stylesheet">
+</head>
+<body>
+<div id="guide-modal">
+    <div class="modal-content">
+      <h2>Masz pomysł?</h2>
+      <p>Zapisz go, a poszybuje prosto w chmury!</p>
+      <button class="close-guide" onclick="closeGuide()">Rozpocznij</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="input-bar">
+      <input type="text" id="task-input" placeholder="Jaki masz pomysł? (wcisnij Enter)">
+      <br>
+      <br>
+      <button class="add-btn" id="add-btn">Dodaj do chmurki</button>
+    </div>
+  </header>
+
+  <div id="clouds-container"></div>
+</body>
+<Script src="kod.js"></script>
+</html>
