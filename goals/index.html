@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Goals</title>
+  <link rel="stylesheet" href="kod.css">
+</head>
+<body class="dark-mode">
+  <div class="app-container">
+    <div class="header-top">
+      <h1>Jaki masz cel w życiu?</h1>
+      <button id="themeToggleBtn" class="theme-toggle-btn" title="Zmień motyw">
+        <span class="theme-icon">🌙</span> <span class="theme-text">Noc</span>
+      </button>
+    </div>
+    <div class="input-form">
+      <div class="input-row">
+        <input type="text" id="mainGoalInput" placeholder="Np. Zostać fryzjerem..." />
+        <select id="categorySelect">
+          <option value="praca">Praca</option>
+          <option value="edukacja">Edukacja</option>
+          <option value="zdrowie">Zdrowie</option>
+          <option value="osobowe">Osobowe</option>
+          <option value="finanse">Finanse</option>
+        </select>
+      </div>
+      <button onclick="addMainGoal()">Dodaj nowy cel</button>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter('all')">Wszystkie</button>
+      <button class="filter-btn" onclick="setFilter('praca')">Praca</button>
+      <button class="filter-btn" onclick="setFilter('edukacja')">Edukacja</button>
+      <button class="filter-btn" onclick="setFilter('zdrowie')">Zdrowie</button>
+      <button class="filter-btn" onclick="setFilter('osobowe')">Osobowe</button>
+      <button class="filter-btn" onclick="setFilter('finanse')">Finanse</button>
+    </div>
+    <div id="goalsContainer" class="goals-list"></div>
+  </div>
+  <script src="kod.js"></script>
+</body>
+</html>
